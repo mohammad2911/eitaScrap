@@ -1,6 +1,6 @@
 import sys
 from services.google_search import google_search_selenium
-from services.eitaa_scraper import extract_channel_ids
+from services.eitaa_scraper import extract_eitaa_ids
 from src.gui.main_window import start_app
 from utils.excel_writer import save_to_excel
 
@@ -12,7 +12,7 @@ def cli_main(query):
     print(f"Found {len(links)} links.")
 
     # استخراج ایدی کانال‌ها
-    channel_ids = extract_channel_ids(links)
+    channel_ids = extract_eitaa_ids(links)
     print(f"Extracted {len(channel_ids)} channel IDs.")
 
     # ذخیره در اکسل

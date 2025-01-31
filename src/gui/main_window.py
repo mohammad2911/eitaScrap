@@ -1,7 +1,7 @@
 import tkinter as tk
 from awesometkinter.bidirender import add_bidi_support
 from services.google_search import google_search_selenium  # تغییر این خط
-from services.eitaa_scraper import extract_channel_ids
+from services.eitaa_scraper import extract_eitaa_ids
 from utils.excel_writer import save_to_excel
 
 def start_app():
@@ -29,7 +29,7 @@ def start_app():
         links = google_search_selenium(query)  # استفاده از تابع google_search_selenium
 
         # استخراج آیدی کانال‌ها
-        channel_ids = extract_channel_ids(links)
+        channel_ids = extract_eitaa_ids(links)
 
         # ذخیره در اکسل
         save_to_excel(channel_ids)

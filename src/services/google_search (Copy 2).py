@@ -7,9 +7,8 @@ import time
 import random
 
 def google_search_selenium(query):
-    # تنظیمات مرورگر
     options = Options()
-    options.add_argument("--headless")  # اجرای مرورگر در حالت headless
+    options.add_argument("--headless")
     options.add_argument("--disable-gpu")
     options.add_argument("start-maximized")
     options.add_argument("disable-infobars")
@@ -18,10 +17,12 @@ def google_search_selenium(query):
     options.add_argument("window-size=1200x600")
     options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36')
 
-    # افزودن تنظیمات اضافی برای کاهش احتمال تشخیص ربات
+    # افزودن تنظیمات اضافی برای کاهش احتمال تشخیص
     options.add_argument("--disable-blink-features=AutomationControlled")
     options.add_experimental_option("excludeSwitches", ["enable-automation"])
     options.add_experimental_option("useAutomationExtension", False)
+
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
     # تغییر User-Agent به صورت تصادفی
     user_agents = [
@@ -31,22 +32,18 @@ def google_search_selenium(query):
     ]
     options.add_argument(f'user-agent={random.choice(user_agents)}')
 
-    # راه‌اندازی مرورگر
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-
-    # جستجو در گوگل
     search_url = f"https://www.google.com/search?q={query}+site:eitaa.com"
-    print(f"Searching for: {search_url}")
+    print(search_url)
     driver.get(search_url)
+    links = []
     time.sleep(random.uniform(3, 5))  # افزایش زمان بین درخواست‌ها به صورت تصادفی
 
-    # استخراج لینک‌های مرتبط با ایتا
-    links = []
     a_tags = driver.find_elements(By.XPATH, "//a[contains(@href, 'eitaa.com')]")
     for a_tag in a_tags:
+        print(a_tag)
         link = a_tag.get_attribute('href')
+        print(link)
         links.append(link)
 
-    # بستن مرورگر
     driver.quit()
     return links
