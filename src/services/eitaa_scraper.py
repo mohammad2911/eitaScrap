@@ -12,10 +12,10 @@ def extract_channel_ids1(links):
 def extract_eitaa_ids(links):
     ids = []
     for link in links:
-        print(link)
         # استفاده از regex برای استخراج آیدی
         match = re.search(r'eitaa\.com/(joinchat/)?([a-zA-Z0-9_-]+)', link)
         if match:
-            print(match.group(2))
             ids.append(match.group(2))  # گروه دوم شامل آیدی است
+        else:
+            ids.append("نامشخص")
     return ids
