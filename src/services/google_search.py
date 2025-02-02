@@ -45,6 +45,7 @@ def google_search_selenium(query):
     a_tags = driver.find_elements(By.XPATH, "//a[contains(@href, 'eitaa.com')]")
     for a_tag in a_tags:
         link = a_tag.get_attribute('href')
+        print(f"linkkkk : {link}")
         links.append(link)
 
     # بستن مرورگر
